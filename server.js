@@ -9,10 +9,10 @@ configureMiddleware(server);
 
 server.use('/api', apiRouter);
 
-// server.use('/', (req, res) => {
-//   res.send(`
-//     <h1>Welcome to the API/auth server!</h2>
-//   `)
-// })
+server.use('/', (req, res) => {
+  res.send(`
+    <h1>Welcome to the API/auth server!</h2>
+  `)
+})
 
 module.exports = server;
