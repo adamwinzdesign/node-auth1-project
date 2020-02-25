@@ -13,6 +13,8 @@ router.post('/register', (req, res) => {
 
   Users.add(user)
     .then(saved => {
+      req.session.loggedIn = true;
+
       res.status(201).json(saved);
     })
     .catch(error => {
@@ -36,6 +38,21 @@ router.post('/login', (req, res) => {
     .catch(error => {
       res.status(500).json(error);
     })
+})
+
+// logout
+router.get('/logout', (req, res) => {
+  if(req.session) {
+    req.session.desrtoy(error => {
+      if (error) {
+        res.status(500).json({ errorMessage: 'Error logging out!', error })
+      } else {
+        res.status(200).json({ message: 'You logged out!' })
+      }
+    })
+  } else {
+    res.status(200).json({ message: 'Bye!' })
+  }
 })
 
 module.exports = router;
